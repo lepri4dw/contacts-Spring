@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Contact Form</title>
+    <style>
+        .container { max-width: 800px; margin: 20px auto; padding: 20px; border: 1px solid #ddd; border-radius: 8px; }
+        a { text-decoration: none; color: blue; }
+        button { padding: 6px 12px; margin-top: 10px; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Добавить/Изменить контакт</h1>
+    <form th:action="@{${contact.id == null ? '/ui/contacts' : '/ui/contacts/' + contact.id}}" method="post">
+        <input type="text" th:value="${contact.fullName}" name="fullName" placeholder="Полное имя" required>
+        <button type="submit">Сохранить</button>
+    </form>
+    <a href="/ui/contacts">Назад к списку контактов</a>
+</div>
+</body>
+</html>

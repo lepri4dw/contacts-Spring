@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Детали контакта</title>
+    <style>
+        .container { max-width: 800px; margin: 20px auto; padding: 20px; border: 1px solid #ddd; border-radius: 8px; }
+        ul { list-style: none; padding: 0; }
+        li { margin: 5px 0; }
+        a { text-decoration: none; color: blue; }
+        button { padding: 6px 12px; margin-top: 10px; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1 th:text="${contact.fullName}"></h1>
+
+    <h2>Emails</h2>
+    <ul>
+        <li th:each="email : ${contact.emails}">
+            <span th:text="${email.emailAddress}"></span>
+            <a th:href="@{/ui/emails/delete/{id}/{contactId}(id=${email.id}, contactId=${contact.id})}">Удалить</a>
+        </li>
+    </ul>
+    <form action="/ui/emails/add/{contactId}" method="post" th:action="@{/ui/emails/add/{contactId}(contactId=${contact.id})}">
+        <input type="text" name="emailAddress" placeholder="Новый имейл">
+        <button type="submit">Добавить</button>
+    </form>
+
+    <h2>Телефоны</h2>
+    <ul>
+        <li th:each="phone : ${contact.phones}">
+            <span th:text="${phone.number}"></span>
+            <a th:href="@{/ui/phones/delete/{id}/{contactId}(id=${phone.id}, contactId=${contact.id})}">Удалить</a>
+        </li>
+    </ul>
+    <form action="/ui/phones/add/{contactId}" method="post" th:action="@{/ui/phones/add/{contactId}(contactId=${contact.id})}">
+        <input type="text" name="number" placeholder="Новый телефон">
+        <button type="submit">Добавить</button>
+    </form>
+
+    <h2>Адреса</h2>
+    <ul>
+        <li th:each="address : ${contact.addresses}">
+            <span th:text="${address.addressLine}"></span>
+            <a th:href="@{/ui/addresses/delete/{id}/{contactId}(id=${address.id}, contactId=${contact.id})}">Удалить</a>
+        </li>
+    </ul>
+    <form action="/ui/addresses/add/{contactId}" method="post" th:action="@{/ui/addresses/add/{contactId}(contactId=${contact.id})}">
+        <input type="text" name="addressLine" placeholder="Новый адрес">
+        <button type="submit">Добавить</button>
+    </form>
+
+    <a href="/ui/contacts">Назад к списку контактов</a>
+</div>
+</body>
+</html>
